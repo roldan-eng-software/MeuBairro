@@ -1,13 +1,277 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="./logo.svg" />
-    <title>Bun + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Bairro - Plataforma de Conexão Comunitária</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-gray-50">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-100 bg-white shadow-md">
+        <nav class="max-w-6xl mx-auto px-8 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10">
+                    <img src="logo.png" alt="Meu Bairro Logo" class="w-full h-full object-contain">
+                </div>
+                <span class="text-xl font-bold text-gray-900">Meu Bairro</span>
+            </div>
+            <ul class="flex gap-8">
+                <li><a href="#beneficios" class="text-gray-900 font-medium hover:text-blue-600 transition">Benefícios</a></li>
+                <li><a href="#planos" class="text-gray-900 font-medium hover:text-blue-600 transition">Planos</a></li>
+                <li><a href="#faq" class="text-gray-900 font-medium hover:text-blue-600 transition">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section bg-cover bg-center bg-fixed py-24 px-8 text-center text-gray-900" style="background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('hero-bg.jpg');">
+        <div class="max-w-2xl mx-auto">
+            <div class="w-24 h-24 mx-auto mb-8">
+                <img src="logo.png" alt="Meu Bairro Logo Grande" class="w-full h-full object-contain">
+            </div>
+            
+            <h1 class="text-5xl md:text-4xl font-bold mb-4 text-gray-900">Meu Bairro</h1>
+            <p class="text-xl text-gray-700 mb-8">Plataforma de conexão comunitária do seu bairro</p>
+            
+            <p class="text-2xl font-semibold text-gray-900 my-8">Aumente suas vendas com clientes que já estão perto de você</p>
+            
+            <p class="text-gray-700 mb-8 leading-relaxed">Descobrimos que 73% das pessoas procuram por serviços no seu próprio bairro. Não deixe esse dinheiro ir para seus concorrentes.</p>
+            
+            <a href="#planos" class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition transform hover:-translate-y-1">Conheça a Plataforma</a>
+        </div>
+    </section>
+    
+    <!-- BENEFÍCIOS -->
+    <section id="beneficios" class="max-w-6xl mx-auto px-8 py-20">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Por que comerciantes estão trocando para o Meu Bairro?</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:-translate-y-2 transition">
+                <div class="text-4xl mb-4">🎯</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Você aparece para quem realmente pode comprar de você</h3>
+                <p class="text-gray-600">Seus clientes ideais estão no seu bairro, ao lado do seu comércio. Não gaste dinheiro alcançando quem mora longe demais.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:-translate-y-2 transition">
+                <div class="text-4xl mb-4">❤️</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Você não precisa ser especialista em redes sociais</h3>
+                <p class="text-gray-600">Diferente do Instagram e Facebook, aqui você não compete por atenção. Os moradores estão buscando justamente o seu tipo de serviço, neste exato local.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-8 shadow-md hover:shadow-lg hover:-translate-y-2 transition">
+                <div class="text-4xl mb-4">💰</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Você paga apenas pelos clientes que você quer</h3>
+                <p class="text-gray-600">Sem surpresas. Sem cobranças extras. Você sabe exatamente quanto vai investir em cada plano.</p>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-12 text-center">
+            <div class="text-4xl mb-4">⚡</div>
+            <h3 class="text-2xl font-bold mb-4">Seus concorrentes já estão lá. Não perca mais clientes para quem está visível.</h3>
+            <p class="text-lg">Enquanto você hesita, outros comerciantes do seu bairro estão atraindo seus clientes potenciais todos os dias.</p>
+        </div>
+    </section>
+    
+    <!-- PRICING SECTION -->
+    <section id="planos" class="bg-blue-50 py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">Escolha seu plano</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Comece a atrair clientes do seu bairro hoje mesmo</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- PLANO BÁSICO -->
+                <div class="bg-white rounded-lg p-8 shadow-md border-2 border-gray-200 hover:shadow-lg transition">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Plano Básico</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Perfeito para quem está começando e quer testar</p>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">R$ 19,90<span class="text-sm text-gray-500">/mês</span></div>
+                    
+                    <ul class="space-y-3 my-6 text-gray-600">
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Listagem no seu bairro</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 01 Foto de seu trabalho ou estabelecimento</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Redes sociais no card</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Botão de chamada direta no seu Whatsapp</li>
+                    </ul>
+                    
+                    <button class="w-full bg-white text-blue-600 border-2 border-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">Começar Teste</button>
+                </div>
+                
+                <!-- PLANO INTERMEDIÁRIO (DESTAQUE) -->
+                <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-600 hover:shadow-xl transition transform scale-105 relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">O mais escolhido</div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Plano Intermediário</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Ideal para quem quer ser visto no bairro</p>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">R$ 49,90<span class="text-sm text-gray-500">/mês</span></div>
+                    <p class="text-green-600 font-semibold mb-6">14 dias GRÁTIS para testar</p>
+                    
+                    <ul class="space-y-3 my-6 text-gray-600">
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Listagem de destaque do bairro (Fica no Topo)</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 03 fotos do seu trabalho ou estabelecimento</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Redes sociais no card</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Botão de chamada direta no seu Whatsapp</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Suporte prioritário</li>
+                    </ul>
+                    
+                    <button class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">Escolher Este Plano</button>
+                </div>
+                
+                <!-- PLANO PREMIUM -->
+                <div class="bg-white rounded-lg p-8 shadow-md border-2 border-gray-200 hover:shadow-lg transition">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Plano Premium</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Para ser visto em outros bairros também</p>
+                    <div class="text-4xl font-bold text-blue-600 mb-2">R$ 99,90<span class="text-sm text-gray-500">/mês</span></div>
+                    
+                    <ul class="space-y-3 my-6 text-gray-600">
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Todo o Intermediário</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 05 Fotos do seu trabalho</li>
+                        <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 01 Página de internet simples com domínio gratuito</li>
+                    </ul>
+                    
+                    <button class="w-full bg-white text-blue-600 border-2 border-blue-600 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">Falar com Consultor</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- TESTIMONIALS -->
+    <section class="bg-blue-50 py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">Veja quem já está crescendo</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Comerciantes como você estão transformando seus negócios</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-8 shadow-md">
+                    <div class="text-2xl mb-4">★★★★★</div>
+                    <p class="text-gray-600 italic mb-6">"Contratar o Meu Bairro foi a melhor decisão que tomei."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">JS</div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">João Silva</h4>
+                            <p class="text-sm text-gray-500">Padaria do Centro</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md">
+                    <div class="text-2xl mb-4">★★★★★</div>
+                    <p class="text-gray-600 italic mb-6">"Não sabia como aparecer no Google Maps. Aqui foi fácil e barato. Meu telefone não para de tocar."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">MS</div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Maria Santos</h4>
+                            <p class="text-sm text-gray-500">Salão de Beleza</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md">
+                    <div class="text-2xl mb-4">★★★★★</div>
+                    <p class="text-gray-600 italic mb-6">"Testei por 14 dias o plano intermediário e no segundo mês já tinha recuperado o investimento."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">PC</div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Pedro Costa</h4>
+                            <p class="text-sm text-gray-500">Mecânico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ SECTION -->
+    <section id="faq" class="max-w-6xl mx-auto px-8 py-20">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">Respostas Rápidas para Você Começar</h2>
+        <p class="text-center text-gray-600 mb-12 text-lg">Tudo que você precisa saber antes de decidir</p>
+        
+        <div class="space-y-6">
+            <div class="bg-gray-50 border-l-4 border-blue-600 rounded-lg p-8">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-3">⏰ Quanto tempo leva para aparecer?</h4>
+                <p class="text-gray-600">Seus primeiros clientes podem chegar em horas. Geralmente em 24-48 horas já há visitantes na sua página.</p>
+            </div>
+            
+            <div class="bg-gray-50 border-l-4 border-blue-600 rounded-lg p-8">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-3">🏢 Funciona mesmo para pequenos negócios?</h4>
+                <p class="text-gray-600">Sim! Especialmente para pequenos negócios. Quanto mais especializado o seu serviço, mais nosso sistema te ajuda a aparecer para quem está procurando.</p>
+            </div>
+            
+            <div class="bg-gray-50 border-l-4 border-blue-600 rounded-lg p-8">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-3">🔐 Posso parar quando quiser?</h4>
+                <p class="text-gray-600">Sem contrato. Sem multa. Você é livre para cancelar a qualquer momento.</p>
+            </div>
+            
+            <div class="bg-gray-50 border-l-4 border-blue-600 rounded-lg p-8">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-3">📍 Vou aparecer para quem está muito longe?</h4>
+                <p class="text-gray-600">Não. Nosso sistema mostra seu negócio apenas para pessoas no seu bairro ou no Plano Premium para outros bairros da sua escolha. Zero desperdício.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FEATURES SECTION -->
+    <section class="bg-blue-50 py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">Por que escolher o Meu Bairro?</h2>
+            <p class="text-center text-gray-600 mb-12 text-lg">Diferenciais que fazem toda a diferença</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Você tem suporte local, não um bot</h3>
+                    <p class="text-gray-600">Qualquer dúvida, você liga e fala com uma pessoa. Não é um chatbot.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Seu concorrente não sabe que você está aqui</h3>
+                    <p class="text-gray-600">Você não depende do algoritmo do Facebook. Aqui, quem busca te encontra naturalmente.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Nós gerenciamos como está a sua pontuação</h3>
+                    <p class="text-gray-600">O sistema é honesto, não fica manipulando resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA FINAL -->
+    <section class="py-20 px-8">
+        <div class="max-w-2xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-16 text-center">
+            <h2 class="text-4xl font-bold mb-6">Comece hoje.</h2>
+            <p class="text-lg mb-4">Seus clientes ideais estão procurando alguém exatamente como você, neste exato momento, no seu bairro.</p>
+            <p class="text-2xl font-bold mb-8">Não deixe para amanhã.</p>
+            <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">Tenho uma Pergunta</button>
+            <p class="mt-6 text-sm opacity-90">Última chance: 14 dias grátis terminam em breve</p>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-12 px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Eventos</h3>
+                    <p class="text-gray-400">Fique por dentro dos acontecimentos do seu bairro.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Comércio Local</h3>
+                    <p class="text-gray-400">Apoie os negócios da sua comunidade.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Serviços</h3>
+                    <p class="text-gray-400">Encontre serviços próximos de você.</p>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-8">
+            
+            <p class="text-center text-gray-400">Desenvolvido por <a href="#" class="text-blue-400 hover:text-blue-300">Roldan Eng Software</a></p>
+            <p class="text-center text-gray-500 text-sm mt-4">&copy; 2025 Meu Bairro. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
 </html>
