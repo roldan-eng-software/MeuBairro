@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Bairro - Plataforma de Conexão Comunitária</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        header {
+            background: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="50" r="80" fill="rgba(102,126,234,0.1)"/><circle cx="1100" cy="500" r="100" fill="rgba(118,75,162,0.1)"/></svg>');
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #333;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .hero p.subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .hero p.description {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin: 2rem 0;
+            line-height: 1.8;
+        }
+        
+        .hero p.stats {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-primary {
+            background: #27AE60;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            padding: 0.8rem 2rem;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        section {
+            padding: 4rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* CARDS SECTION */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* PRICING SECTION */
+        .pricing {
+            background: #f8f9ff;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: "O mais escolhido";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .pricing-card .price {
+            font-size: 2rem;
+            color: #667eea;
+            font-weight: 700;
+            margin: 1.5rem 0;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 0.8rem 0;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .pricing-card li:before {
+            content: "✓ ";
+            color: #27AE60;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* TESTIMONIALS */
+        .testimonials {
+            background: #f8f9ff;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-text {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-info h4 {
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+        }
+        
+        .testimonial-info p {
+            margin: 0;
+            color: #999;
+            font-size: 0.85rem;
+        }
+        
+        /* FAQ SECTION */
+        .faq {
+            background: white;
+        }
+        
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .faq-item h4 {
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .faq-item p {
+            color: #666;
+            margin: 0;
+            line-height: 1.8;
+        }
+        
+        /* CTA SECTION */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 2rem auto;
+        }
+        
+        .cta h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* FEATURES SECTION */
+        .features {
+            background: #f8f9ff;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p.description {
+                font-size: 1.1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+<script type="module" crossorigin src="./index-y1e0g89h.js"></script></head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">🏘️</div>
+                <span>Meu Bairro</span>
+            </div>
+            <ul>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#planos">Planos</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo">🏘️</div>
+            <h1>Meu Bairro</h1>
+            <p class="subtitle">Plataforma de conexão comunitária do seu bairro</p>
+            
+            <p class="description">Aumente suas vendas com clientes que já estão perto de você</p>
+            
+            <p class="stats">Descobrimos que 73% das pessoas procuram por serviços no seu próprio bairro. Não deixe esse dinheiro ir para seus concorrentes.</p>
+            
+            <a href="#planos" class="btn-primary">Conheça a Plataforma</a>
+        </div>
+    </section>
+    
+    <!-- BENEFÍCIOS -->
+    <section id="beneficios" class="container">
+        <h2>Por que comerciantes estão trocando para o Meu Bairro?</h2>
+        
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Você aparece para quem realmente pode comprar de você</h3>
+                <p>Seus clientes ideais estão no seu bairro, ao lado do seu comércio. Não gaste dinheiro alcançando quem mora longe demais.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">❤️</div>
+                <h3>Você não precisa ser especialista em redes sociais</h3>
+                <p>Diferente do Instagram e Facebook, aqui você não compete por atenção. Os moradores estão buscando justamente o seu tipo de serviço, neste exato local.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <h3>Você paga apenas pelos clientes que você quer</h3>
+                <p>Sem surpresas. Sem cobranças extras. Você sabe exatamente quanto vai investir em cada plano.</p>
+            </div>
+        </div>
+        
+        <div class="cta" style="margin-top: 3rem;">
+            <div class="card-icon">⚡</div>
+            <h3>Seus concorrentes já estão lá. Não perca mais clientes para quem está visível.</h3>
+            <p>Enquanto você hesita, outros comerciantes do seu bairro estão atraindo seus clientes potenciais todos os dias.</p>
+        </div>
+    </section>
+    
+    <!-- PRICING SECTION -->
+    <section id="planos" class="pricing">
+        <div class="container">
+            <h2>Escolha seu plano</h2>
+            <p class="section-subtitle">Comece a atrair clientes do seu bairro hoje mesmo</p>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Plano Básico</h3>
+                    <p style="color: #667eea; font-weight: 600;">Perfeito para quem está começando e quer testar</p>
+                    <div class="price">R$ 19,90<span style="font-size: 0.6em; color: #999;">/mês</span></div>
+                    <ul>
+                        <li>Listagem no seu bairro</li>
+                        <li>01 Foto de seu trabalho ou estabelecimento</li>
+                        <li>Redes sociais no card</li>
+                        <li>Botão de chamada direta no seu Whatsapp</li>
+                    </ul>
+                    <button class="btn-secondary">Começar Teste</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Plano Intermediário</h3>
+                    <p style="color: #667eea; font-weight: 600;">Ideal para quem quer ser visto no bairro</p>
+                    <div class="price">R$ 49,90<span style="font-size: 0.6em; color: #999;">/mês</span></div>
+                    <p style="color: #27AE60; font-weight: 600; margin: 1rem 0;">14 dias GRÁTIS para testar</p>
+                    <ul>
+                        <li>Listagem de destaque do bairro (Fica no Topo das pesquisas)</li>
+                        <li>03 fotos do seu trabalho ou estabelecimento</li>
+                        <li>Redes sociais no card</li>
+                        <li>Botão de chamada direta no seu Whatsapp</li>
+                        <li>Suporte prioritário</li>
+                    </ul>
+                    <button class="btn-primary">Escolher Este Plano</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Plano Premium</h3>
+                    <p style="color: #667eea; font-weight: 600;">Para ser visto em outros bairros também</p>
+                    <div class="price">R$ 99,90<span style="font-size: 0.6em; color: #999;">/mês</span></div>
+                    <ul>
+                        <li>Todo o Intermediário</li>
+                        <li>05 Fotos do seu trabalho ou estabelecimento</li>
+                        <li>01 Página de internet simples com domínio gratuito</li>
+                        <li style="font-style: italic; color: #999;">Caso deseje uma página de internet com domínio próprio, temos planos para você também</li>
+                    </ul>
+                    <button class="btn-secondary">Falar com Consultor</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Veja quem já está crescendo</h2>
+            <p class="section-subtitle">Comerciantes como você estão transformando seus negócios</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Contratar o Meu Bairro foi a melhor decisão que tomei."</p>
+                    <div class="testimonial-author">
+                        <div class="avatar">JS</div>
+                        <div class="testimonial-info">
+                            <h4>João Silva</h4>
+                            <p>Padaria do Centro</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Não sabia como aparecer no Google Maps. Aqui foi fácil e barato. Meu telefone não para de tocar."</p>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #27AE60 0%, #16A085 100%);">MS</div>
+                        <div class="testimonial-info">
+                            <h4>Maria Santos</h4>
+                            <p>Salão de Beleza</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Testei por 14 dias o plano intermediário e no segundo mês já tinha recuperado o investimento com novos clientes."</p>
+                    <div class="testimonial-author">
+                        <div class="avatar" style="background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);">PC</div>
+                        <div class="testimonial-info">
+                            <h4>Pedro Costa</h4>
+                            <p>Mecânico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ SECTION -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Respostas Rápidas para Você Começar</h2>
+            <p class="section-subtitle">Tudo que você precisa saber antes de decidir</p>
+            
+            <div class="faq-item">
+                <h4>⏰ Quanto tempo leva para aparecer?</h4>
+                <p>Seus primeiros clientes podem chegar em horas. Geralmente em 24-48 horas já há visitantes na sua página.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>🏢 Funciona mesmo para pequenos negócios?</h4>
+                <p>Sim! Especialmente para pequenos negócios. Quanto mais especializado o seu serviço, mais nosso sistema te ajuda a aparecer para quem está procurando.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>🔐 Posso parar quando quiser?</h4>
+                <p>Sem contrato. Sem multa. Você é livre para cancelar a qualquer momento.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>📍 Vou aparecer para quem está muito longe?</h4>
+                <p>Não. Nosso sistema mostra seu negócio apenas para pessoas no seu bairro ou no Plano Premium para outros bairros da sua escolha. Zero desperdício.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FEATURES SECTION -->
+    <section class="features">
+        <div class="container">
+            <h2>Por que escolher o Meu Bairro?</h2>
+            <p class="section-subtitle">Diferenciais que fazem toda a diferença</p>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">👥</div>
+                    <h3>Você tem suporte local, não um bot</h3>
+                    <p>Qualquer dúvida, você liga e fala com uma pessoa. Não é um chatbot.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Seu concorrente não sabe que você está aqui</h3>
+                    <p>Você não depende do algoritmo do Facebook. Aqui, quem busca te encontra naturalmente.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Nós gerenciamos como está a sua pontuação diante das pesquisas</h3>
+                    <p>O sistema é honesto, não fica manipulando resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA FINAL -->
+    <section>
+        <div class="cta">
+            <h2>Comece hoje.</h2>
+            <p>Seus clientes ideais estão procurando alguém exatamente como você, neste exato momento, no seu bairro.</p>
+            <p style="font-size: 1.3rem; font-weight: 600;">Não deixe para amanhã.</p>
+            <button class="btn-secondary" style="background: white; color: #667eea; border: none; font-size: 1.05rem;">Tenho uma Pergunta</button>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">Última chance: 14 dias grátis terminam em breve</p>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <h3>Eventos</h3>
+                <p>Fique por dentro dos acontecimentos do seu bairro.</p>
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <h3>Comércio Local</h3>
+                <p>Apoie os negócios da sua comunidade.</p>
+            </div>
+            <div style="margin-bottom: 2rem;">
+                <h3>Serviços</h3>
+                <p>Encontre serviços próximos de você.</p>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 2rem 0;">
+            
+            <p>Desenvolvido por <a href="#">Roldan Eng Software</a></p>
+            <p style="font-size: 0.9rem; color: #999; margin-top: 1rem;">&copy; 2025 Meu Bairro. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
