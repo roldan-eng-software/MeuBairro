@@ -15,7 +15,7 @@
     
     <!-- Open Graph (Redes Sociais) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content=https://roldan-eng-software.github.io/MeuBairro/">
+    <meta property="og:url" content="https://seu-dominio.com.br">
     <meta property="og:title" content="Meu Bairro - Plataforma de Conexão Comunitária">
     <meta property="og:description" content="Aumente suas vendas com clientes do seu bairro. Plataforma que conecta comerciantes locais com moradores.">
     <meta property="og:image" content="https://seu-dominio.com.br/logo.png">
@@ -47,40 +47,134 @@
         "@type": "LocalBusiness",
         "name": "Meu Bairro",
         "description": "Plataforma de conexão comunitária que conecta comerciantes locais com moradores",
-        "url": "https://roldan-eng-software.github.io/MeuBairro/",
-        "logo": "https://roldan-eng-software.github.io/MeuBairro/logo.png",
+        "url": "https://seu-dominio.com.br",
+        "logo": "https://seu-dominio.com.br/logo.png",
         "sameAs": [
             "https://www.facebook.com/meubairro",
-            "https://www.instagram.com/roldan-eng-software,
+            "https://www.instagram.com/meubairro",
             "https://www.linkedin.com/company/meubairro"
         ],
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "Customer Support",
-            "telephone": "+55-16981442301",
-            "email": "roldan.eng.software@gmail.com"
+            "telephone": "+55-11-XXXXX-XXXX",
+            "email": "contato@meubairro.com.br"
         }
     }
     </script>
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPJY8VSLNB"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-KPJY8VSLNB'); // Substitua pelo seu ID
+        gtag('config', 'G-XXXXXXXXXX'); // Substitua pelo seu ID
     </script>
     
     <!-- Google Search Console -->
-    <meta name="google-site-verification" content="https://roldan-eng-software.github.io/MeuBairro/">
+    <meta name="google-site-verification" content="XXXXXXXXXXXXXXXXXXXXX">
     
     <!-- Font Awesome (opcional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-<link rel="stylesheet" crossorigin href="./index-4t33rbah.css"><script type="module" crossorigin src="./index-y1e0g89h.js"></script></head>
+    
+    <!-- Script de Formulário de Contato -->
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const contactModal = document.getElementById('contact-modal');
+        
+        // Fechar modal ao clicar fora
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                contactModal.classList.add('hidden');
+            }
+        });
+        
+        // Enviar formulário
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Coletar dados
+            const formData = new FormData(contactForm);
+            const data = {
+                nome: formData.get('nome'),
+                email: formData.get('email'),
+                telefone: formData.get('telefone'),
+                assunto: formData.get('assunto'),
+                mensagem: formData.get('mensagem'),
+                data: new Date().toLocaleString('pt-BR')
+            };
+            
+            // Mostrar status
+            formStatus.classList.remove('hidden');
+            formStatus.className = 'p-3 rounded-lg text-sm bg-blue-100 text-blue-700';
+            formStatus.textContent = 'Enviando...';
+            
+            try {
+                // Enviar para seu backend
+                const response = await fetch('/api/contato', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                    formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
+                    contactForm.reset();
+                    
+                    // Fechar modal em 3 segundos
+                    setTimeout(() => {
+                        contactModal.classList.add('hidden');
+                        formStatus.classList.add('hidden');
+                    }, 3000);
+                } else {
+                    throw new Error('Erro ao enviar');
+                }
+            } catch (error) {
+                // Fallback: Enviar por email direto
+                enviaPorEmail(data);
+            }
+        });
+        
+        // Função para enviar por email (usando FormSubmit.co)
+        function enviaPorEmail(data) {
+            const form = new FormData();
+            form.append('nome', data.nome);
+            form.append('email', data.email);
+            form.append('telefone', data.telefone);
+            form.append('assunto', data.assunto);
+            form.append('mensagem', data.mensagem);
+            form.append('_subject', `Novo contato: ${data.assunto}`);
+            form.append('_captcha', 'false');
+            
+            fetch('https://formsubmit.co/seu-email@gmail.com', {
+                method: 'POST',
+                body: form
+            })
+            .then(() => {
+                formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                formStatus.textContent = '✓ Mensagem enviada com sucesso!';
+                contactForm.reset();
+                
+                setTimeout(() => {
+                    contactModal.classList.add('hidden');
+                    formStatus.classList.add('hidden');
+                }, 3000);
+            })
+            .catch(() => {
+                formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
+                formStatus.textContent = '✗ Erro ao enviar. Tente novamente.';
+            });
+        }
+    </script>
+<link rel="stylesheet" crossorigin href="./index-ceemyzcg.css"><script type="module" crossorigin src="./index-y1e0g89h.js"></script></head>
 <body class="bg-gray-50">
     <!-- HEADER -->
     <header class="sticky top-0 z-100 bg-white shadow-md">
@@ -317,10 +411,61 @@
             <h2 class="text-4xl font-bold mb-6">Comece hoje.</h2>
             <p class="text-lg mb-4">Seus clientes ideais estão procurando alguém exatamente como você, neste exato momento, no seu bairro.</p>
             <p class="text-2xl font-bold mb-8">Não deixe para amanhã.</p>
-            <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">Tenho uma Pergunta</button>
+            <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">Tenho uma Pergunta</button>
             <p class="mt-6 text-sm opacity-90">Última chance: 14 dias grátis terminam em breve</p>
         </div>
     </section>
+    
+    <!-- MODAL DE CONTATO -->
+    <div id="contact-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full animate-slideDown">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Entre em Contato</h3>
+                <button onclick="document.getElementById('contact-modal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            
+            <form id="contact-form" class="space-y-4">
+                <div>
+                    <label for="nome" class="block text-sm font-semibold text-gray-900 mb-2">Nome *</label>
+                    <input type="text" id="nome" name="nome" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="Seu nome">
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">E-mail *</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="seu@email.com">
+                </div>
+                
+                <div>
+                    <label for="telefone" class="block text-sm font-semibold text-gray-900 mb-2">Telefone/WhatsApp</label>
+                    <input type="tel" id="telefone" name="telefone" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="(11) 9XXXX-XXXX">
+                </div>
+                
+                <div>
+                    <label for="assunto" class="block text-sm font-semibold text-gray-900 mb-2">Assunto *</label>
+                    <select id="assunto" name="assunto" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition">
+                        <option value="">Selecione um assunto</option>
+                        <option value="duvida">Tenho uma dúvida</option>
+                        <option value="interesse">Tenho interesse em um plano</option>
+                        <option value="sugestao">Sugestão</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="mensagem" class="block text-sm font-semibold text-gray-900 mb-2">Mensagem *</label>
+                    <textarea id="mensagem" name="mensagem" required rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition resize-none" placeholder="Sua mensagem aqui..."></textarea>
+                </div>
+                
+                <div id="form-status" class="hidden p-3 rounded-lg text-sm"></div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Enviar Mensagem
+                </button>
+                
+                <p class="text-xs text-gray-500 text-center">Responderemos em até 24 horas</p>
+            </form>
+        </div>
+    </div>
     
     <!-- FOOTER -->
     <footer class="bg-gray-900 text-white py-12 px-8">
@@ -343,7 +488,7 @@
             <hr class="border-gray-700 my-8">
             
             <p class="text-center text-gray-400">Desenvolvido por <a href="#" class="text-blue-400 hover:text-blue-300">Roldan Eng Software</a></p>
-            <p class="text-center text-gray-500 text-sm mt-4">&copy; 2025 Meu Bairro. Todos os direitos reservados.</p>
+            <p class="text-center text-gray-500 text-sm mt-4">&copy; 2026 Meu Bairro. Todos os direitos reservados.</p>
         </div>
     </footer>
 </body>

@@ -1,6 +1,7 @@
 /* ============================================
    TAILWIND + CUSTOM CSS - Meu Bairro
    ============================================ */
+   
 
 /* IMPORTAR TAILWIND (opcional se usar via CDN) */
 @import url('https://cdn.tailwindcss.com');
@@ -36,6 +37,39 @@
     50% {
         transform: translateY(-10px);
     }
+}
+
+/* MODAL DE CONTATO */
+#contact-modal.hidden {
+    display: none;
+}
+
+#contact-modal:not(.hidden) {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#contact-form {
+    animation: slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#contact-form input,
+#contact-form select,
+#contact-form textarea {
+    transition: all 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form select:focus,
+#contact-form textarea:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+#contact-form button {
+    transition: all 0.3s ease;
+}
+
+#contact-form button:active {
+    transform: scale(0.98);
 }
 
 /* ============================================
