@@ -81,8 +81,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="index.css">
     
-    <!-- Script de Formulário de Contato -->
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    
+    <!-- Script de Formulário de Contato com EmailJS -->
     <script>
+        // Inicializar EmailJS (substitua YOUR_PUBLIC_KEY)
+        emailjs.init('YOUR_PUBLIC_KEY');
+        
         const contactForm = document.getElementById('contact-form');
         const formStatus = document.getElementById('form-status');
         const contactModal = document.getElementById('contact-modal');
@@ -100,7 +106,7 @@
             
             // Coletar dados
             const formData = new FormData(contactForm);
-            const data = {
+            const templateParams = {
                 nome: formData.get('nome'),
                 email: formData.get('email'),
                 telefone: formData.get('telefone'),
@@ -115,16 +121,14 @@
             formStatus.textContent = 'Enviando...';
             
             try {
-                // Enviar para seu backend
-                const response = await fetch('/api/contato', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
+                // Enviar usando EmailJS
+                const response = await emailjs.send(
+                    'YOUR_SERVICE_ID',      // Substitua com seu Service ID
+                    'YOUR_TEMPLATE_ID',     // Substitua com seu Template ID
+                    templateParams
+                );
                 
-                if (response.ok) {
+                if (response.status === 200) {
                     formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
                     formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
                     contactForm.reset();
@@ -134,45 +138,13 @@
                         contactModal.classList.add('hidden');
                         formStatus.classList.add('hidden');
                     }, 3000);
-                } else {
-                    throw new Error('Erro ao enviar');
                 }
             } catch (error) {
-                // Fallback: Enviar por email direto
-                enviaPorEmail(data);
-            }
-        });
-        
-        // Função para enviar por email (usando FormSubmit.co)
-        function enviaPorEmail(data) {
-            const form = new FormData();
-            form.append('nome', data.nome);
-            form.append('email', data.email);
-            form.append('telefone', data.telefone);
-            form.append('assunto', data.assunto);
-            form.append('mensagem', data.mensagem);
-            form.append('_subject', `Novo contato: ${data.assunto}`);
-            form.append('_captcha', 'false');
-            
-            fetch('https://formsubmit.co/seu-email@gmail.com', {
-                method: 'POST',
-                body: form
-            })
-            .then(() => {
-                formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
-                formStatus.textContent = '✓ Mensagem enviada com sucesso!';
-                contactForm.reset();
-                
-                setTimeout(() => {
-                    contactModal.classList.add('hidden');
-                    formStatus.classList.add('hidden');
-                }, 3000);
-            })
-            .catch(() => {
+                console.error('Erro ao enviar:', error);
                 formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
                 formStatus.textContent = '✗ Erro ao enviar. Tente novamente.';
-            });
-        }
+            }
+        });
     </script>
 </head>
 <body class="bg-gray-50">
@@ -411,7 +383,14 @@
             <h2 class="text-4xl font-bold mb-6">Comece hoje.</h2>
             <p class="text-lg mb-4">Seus clientes ideais estão procurando alguém exatamente como você, neste exato momento, no seu bairro.</p>
             <p class="text-2xl font-bold mb-8">Não deixe para amanhã.</p>
-            <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">Tenho uma Pergunta</button>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">
+                    Tenho uma Pergunta
+                </button>
+                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Tenho%20interesse%20em%20saber%20mais%20sobre%20o%20Meu%20Bairro" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition text-lg flex items-center gap-2">
+                    💬 WhatsApp
+                </a>
+            </div>
             <p class="mt-6 text-sm opacity-90">Última chance: 14 dias grátis terminam em breve</p>
         </div>
     </section>
@@ -488,8 +467,74 @@
             <hr class="border-gray-700 my-8">
             
             <p class="text-center text-gray-400">Desenvolvido por <a href="#" class="text-blue-400 hover:text-blue-300">Roldan Eng Software</a></p>
-            <p class="text-center text-gray-500 text-sm mt-4">&copy; 2026 Meu Bairro. Todos os direitos reservados.</p>
+            <p class="text-center text-gray-500 text-sm mt-4">&copy; 2025 Meu Bairro. Todos os direitos reservados.</p>
         </div>
     </footer>
+    
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    
+    <!-- Script de Formulário de Contato com EmailJS -->
+    <script>
+        // Inicializar EmailJS (substitua YOUR_PUBLIC_KEY)
+        emailjs.init('YOUR_PUBLIC_KEY');
+        
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const contactModal = document.getElementById('contact-modal');
+        
+        // Fechar modal ao clicar fora
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                contactModal.classList.add('hidden');
+            }
+        });
+        
+        // Enviar formulário
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Coletar dados
+            const formData = new FormData(contactForm);
+            const templateParams = {
+                nome: formData.get('nome'),
+                email: formData.get('email'),
+                telefone: formData.get('telefone'),
+                assunto: formData.get('assunto'),
+                mensagem: formData.get('mensagem'),
+                data: new Date().toLocaleString('pt-BR')
+            };
+            
+            // Mostrar status
+            formStatus.classList.remove('hidden');
+            formStatus.className = 'p-3 rounded-lg text-sm bg-blue-100 text-blue-700';
+            formStatus.textContent = 'Enviando...';
+            
+            try {
+                // Enviar usando EmailJS
+                const response = await emailjs.send(
+                    'YOUR_SERVICE_ID',      // Substitua com seu Service ID
+                    'YOUR_TEMPLATE_ID',     // Substitua com seu Template ID
+                    templateParams
+                );
+                
+                if (response.status === 200) {
+                    formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                    formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
+                    contactForm.reset();
+                    
+                    // Fechar modal em 3 segundos
+                    setTimeout(() => {
+                        contactModal.classList.add('hidden');
+                        formStatus.classList.add('hidden');
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
+                formStatus.textContent = '✗ Erro ao enviar. Tente novamente.';
+            }
+        });
+    </script>
 </body>
 </html>
