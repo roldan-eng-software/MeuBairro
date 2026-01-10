@@ -10,9 +10,6 @@
   },
   "dependencies": {
     "bun-plugin-tailwind": "^0.1.2",
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "nodemailer": "^7.0.12",
     "react": "^19",
     "react-dom": "^19",
     "tailwindcss": "^4.1.11"
