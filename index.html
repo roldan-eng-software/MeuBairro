@@ -121,12 +121,16 @@
             formStatus.textContent = 'Enviando...';
             
             try {
+                console.log('Enviando formulário...', templateParams);
+                
                 // Enviar usando EmailJS
                 const response = await emailjs.send(
                     'service_9tnugi8',      // Substitua com seu Service ID
                     'template_pjm62ug',     // Substitua com seu Template ID
                     templateParams
                 );
+                
+                console.log('Resposta EmailJS:', response);
                 
                 if (response.status === 200) {
                     formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
@@ -138,11 +142,19 @@
                         contactModal.classList.add('hidden');
                         formStatus.classList.add('hidden');
                     }, 3000);
+                } else {
+                    throw new Error(`Status não esperado: ${response.status}`);
                 }
             } catch (error) {
-                console.error('Erro ao enviar:', error);
+                console.error('Erro detalhado ao enviar email:', error);
+                console.error('Detalhes do erro:', {
+                    message: error.message,
+                    status: error.status,
+                    text: error.text
+                });
+                
                 formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
-                formStatus.textContent = '✗ Erro ao enviar. Tente novamente.';
+                formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
             }
         });
     </script>
