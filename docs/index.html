@@ -80,140 +80,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    
-    <!-- EmailJS Library -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
-    
-    <!-- Script de Verificação EmailJS -->
-    <script>
-        // Garantir que EmailJS esteja disponível globalmente
-        window.addEventListener('load', function() {
-            if (typeof emailjs === 'undefined') {
-                console.error('EmailJS não carregado. Tentando carregar novamente...');
-                // Tentar carregar novamente se falhou
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js';
-                script.onload = function() {
-                    console.log('EmailJS carregado na segunda tentativa');
-                    initEmailJS();
-                };
-                document.head.appendChild(script);
-            } else {
-                console.log('EmailJS disponível no window.load');
-                initEmailJS();
-            }
-        });
-        
-        function initEmailJS() {
-            if (typeof emailjs !== 'undefined') {
-                emailjs.init('ljiKvSeNsFKBPIhPI');
-                console.log('EmailJS inicializado com sucesso');
-                
-                // Configurar formulário se o DOM estiver pronto
-                if (document.readyState === 'complete') {
-                    setupContactForm();
-                } else {
-                    document.addEventListener('DOMContentLoaded', setupContactForm);
-                }
-            }
-        }
-        
-        function setupContactForm() {
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            const contactModal = document.getElementById('contact-modal');
-            
-            if (!contactForm || !formStatus || !contactModal) {
-                console.error('Elementos do formulário não encontrados');
-                return;
-            }
-            
-            console.log('Configurando formulário de contato...');
-            
-            // Fechar modal ao clicar fora
-            contactModal.addEventListener('click', (e) => {
-                if (e.target === contactModal) {
-                    contactModal.classList.add('hidden');
-                }
-            });
-            
-            // Enviar formulário
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // Coletar dados
-                const formData = new FormData(contactForm);
-                const templateParams = {
-                    nome: formData.get('nome'),
-                    email: formData.get('email'),
-                    telefone: formData.get('telefone'),
-                    assunto: formData.get('assunto'),
-                    mensagem: formData.get('mensagem'),
-                    data: new Date().toLocaleString('pt-BR')
-                };
-                
-                // Mostrar status
-                formStatus.classList.remove('hidden');
-                formStatus.style.display = 'block';
-                formStatus.style.visibility = 'visible';
-                formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
-                formStatus.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-200');
-                formStatus.textContent = 'Enviando...';
-                console.log('Status de envio exibido:', formStatus.className);
-                
-                try {
-                    console.log('Enviando formulário...', templateParams);
-                    
-                    // Verificar EmailJS novamente antes de enviar
-                    if (typeof emailjs === 'undefined') {
-                        throw new Error('EmailJS não está disponível no momento do envio');
-                    }
-                    
-                    // Enviar usando EmailJS
-                    const response = await emailjs.send(
-                        'service_9tnugi8',      // Substitua com seu Service ID
-                        'template_pjm62ug',     // Substitua com seu Template ID
-                        templateParams
-                    );
-                    
-                    console.log('Resposta EmailJS:', response);
-                    
-                    if (response.status === 200) {
-                        formStatus.style.display = 'block';
-                        formStatus.style.visibility = 'visible';
-                        formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
-                        formStatus.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-200');
-                        formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
-                        console.log('Mensagem de sucesso exibida:', formStatus.className);
-                        contactForm.reset();
-                        
-                        // Fechar modal em 3 segundos
-                        setTimeout(() => {
-                            contactModal.classList.add('hidden');
-                            formStatus.classList.add('hidden');
-                            formStatus.style.display = 'none';
-                        }, 3000);
-                    } else {
-                        throw new Error(`Status não esperado: ${response.status}`);
-                    }
-                } catch (error) {
-                    console.error('Erro detalhado ao enviar email:', error);
-                    console.error('Detalhes do erro:', {
-                        message: error.message,
-                        status: error.status,
-                        text: error.text
-                    });
-                    
-                    formStatus.style.display = 'block';
-                    formStatus.style.visibility = 'visible';
-                    formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
-                    formStatus.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-200');
-                    formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
-                    console.log('Mensagem de erro exibida:', formStatus.className);
-                }
-            });
-        }
-    </script>
 <link rel="stylesheet" crossorigin href="./index-ceemyzcg.css"><script type="module" crossorigin src="./index-y1e0g89h.js"></script></head>
 <body class="bg-gray-50">
     <!-- HEADER -->
@@ -451,68 +317,14 @@
             <h2 class="text-4xl font-bold mb-6">Comece hoje.</h2>
             <p class="text-lg mb-4">Seus clientes ideais estão procurando alguém exatamente como você, neste exato momento, no seu bairro.</p>
             <p class="text-2xl font-bold mb-8">Não deixe para amanhã.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition text-lg">
-                    Tenho uma Pergunta
-                </button>
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Tenho%20interesse%20em%20saber%20mais%20sobre%20o%20Meu%20Bairro" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition text-lg flex items-center gap-2">
-                    💬 WhatsApp
-                </a>
-            </div>
-            <p class="mt-6 text-sm opacity-90">Última chance: 14 dias grátis terminam em breve</p>
+            
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Tenho%20interesse%20em%20saber%20mais%20sobre%20o%20Meu%20Bairro" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition text-lg flex items-center gap-2 mx-auto w-fit">
+                💬 Fale Conosco no WhatsApp
+            </a>
+            
+            <p class="mt-6 text-sm opacity-90">Resposta rápida em até 5 minutos</p>
         </div>
     </section>
-    
-    <!-- MODAL DE CONTATO -->
-    <div id="contact-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-lg p-8 max-w-md w-full animate-slideDown">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-900">Entre em Contato</h3>
-                <button onclick="document.getElementById('contact-modal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-            </div>
-            
-            <form id="contact-form" class="space-y-4">
-                <div>
-                    <label for="nome" class="block text-sm font-semibold text-gray-900 mb-2">Nome *</label>
-                    <input type="text" id="nome" name="nome" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="Seu nome">
-                </div>
-                
-                <div>
-                    <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">E-mail *</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="seu@email.com">
-                </div>
-                
-                <div>
-                    <label for="telefone" class="block text-sm font-semibold text-gray-900 mb-2">Telefone/WhatsApp</label>
-                    <input type="tel" id="telefone" name="telefone" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition" placeholder="(11) 9XXXX-XXXX">
-                </div>
-                
-                <div>
-                    <label for="assunto" class="block text-sm font-semibold text-gray-900 mb-2">Assunto *</label>
-                    <select id="assunto" name="assunto" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition">
-                        <option value="">Selecione um assunto</option>
-                        <option value="duvida">Tenho uma dúvida</option>
-                        <option value="interesse">Tenho interesse em um plano</option>
-                        <option value="sugestao">Sugestão</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="mensagem" class="block text-sm font-semibold text-gray-900 mb-2">Mensagem *</label>
-                    <textarea id="mensagem" name="mensagem" required rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition resize-none" placeholder="Sua mensagem aqui..."></textarea>
-                </div>
-                
-                <div id="form-status" class="hidden p-3 rounded-lg text-sm font-medium transition-all duration-300" style="z-index: 10; position: relative;"></div>
-                
-                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                    Enviar Mensagem
-                </button>
-                
-                <p class="text-xs text-gray-500 text-center">Responderemos em até 24 horas</p>
-            </form>
-        </div>
-    </div>
     
     <!-- FOOTER -->
     <footer class="bg-gray-900 text-white py-12 px-8">
