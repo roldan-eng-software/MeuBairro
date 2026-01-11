@@ -154,8 +154,12 @@
                 
                 // Mostrar status
                 formStatus.classList.remove('hidden');
-                formStatus.className = 'p-3 rounded-lg text-sm bg-blue-100 text-blue-700';
+                formStatus.style.display = 'block';
+                formStatus.style.visibility = 'visible';
+                formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
+                formStatus.classList.add('bg-blue-100', 'text-blue-700', 'border', 'border-blue-200');
                 formStatus.textContent = 'Enviando...';
+                console.log('Status de envio exibido:', formStatus.className);
                 
                 try {
                     console.log('Enviando formulário...', templateParams);
@@ -175,14 +179,19 @@
                     console.log('Resposta EmailJS:', response);
                     
                     if (response.status === 200) {
-                        formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                        formStatus.style.display = 'block';
+                        formStatus.style.visibility = 'visible';
+                        formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
+                        formStatus.classList.add('bg-green-100', 'text-green-700', 'border', 'border-green-200');
                         formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
+                        console.log('Mensagem de sucesso exibida:', formStatus.className);
                         contactForm.reset();
                         
                         // Fechar modal em 3 segundos
                         setTimeout(() => {
                             contactModal.classList.add('hidden');
                             formStatus.classList.add('hidden');
+                            formStatus.style.display = 'none';
                         }, 3000);
                     } else {
                         throw new Error(`Status não esperado: ${response.status}`);
@@ -195,8 +204,12 @@
                         text: error.text
                     });
                     
-                    formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
+                    formStatus.style.display = 'block';
+                    formStatus.style.visibility = 'visible';
+                    formStatus.className = 'p-3 rounded-lg text-sm font-medium transition-all duration-300';
+                    formStatus.classList.add('bg-red-100', 'text-red-700', 'border', 'border-red-200');
                     formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
+                    console.log('Mensagem de erro exibida:', formStatus.className);
                 }
             });
         }
@@ -490,7 +503,7 @@
                     <textarea id="mensagem" name="mensagem" required rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none transition resize-none" placeholder="Sua mensagem aqui..."></textarea>
                 </div>
                 
-                <div id="form-status" class="hidden p-3 rounded-lg text-sm"></div>
+                <div id="form-status" class="hidden p-3 rounded-lg text-sm font-medium transition-all duration-300" style="z-index: 10; position: relative;"></div>
                 
                 <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
                     Enviar Mensagem
