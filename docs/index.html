@@ -86,11 +86,18 @@
     
     <!-- Script de Formulário de Contato com EmailJS -->
     <script>
-        // Inicializar EmailJS (substitua YOUR_PUBLIC_KEY)
-        emailjs.init('ljiKvSeNsFKBPIhPI');
-        
-        // Esperar o DOM carregar
+        // Esperar o DOM carregar e a biblioteca EmailJS
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se EmailJS está carregado
+            if (typeof emailjs === 'undefined') {
+                console.error('EmailJS não carregado. Verifique a conexão ou a biblioteca.');
+                return;
+            }
+            
+            // Inicializar EmailJS
+            emailjs.init('ljiKvSeNsFKBPIhPI');
+            console.log('EmailJS inicializado com sucesso');
+            
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
             const contactModal = document.getElementById('contact-modal');
