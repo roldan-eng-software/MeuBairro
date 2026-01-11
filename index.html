@@ -84,20 +84,41 @@
     <!-- EmailJS Library -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
     
-    <!-- Script de Formulário de Contato com EmailJS -->
+    <!-- Script de Verificação EmailJS -->
     <script>
-        // Esperar o DOM carregar e a biblioteca EmailJS
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se EmailJS está carregado
+        // Garantir que EmailJS esteja disponível globalmente
+        window.addEventListener('load', function() {
             if (typeof emailjs === 'undefined') {
-                console.error('EmailJS não carregado. Verifique a conexão ou a biblioteca.');
-                return;
+                console.error('EmailJS não carregado. Tentando carregar novamente...');
+                // Tentar carregar novamente se falhou
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js';
+                script.onload = function() {
+                    console.log('EmailJS carregado na segunda tentativa');
+                    initEmailJS();
+                };
+                document.head.appendChild(script);
+            } else {
+                console.log('EmailJS disponível no window.load');
+                initEmailJS();
             }
-            
-            // Inicializar EmailJS
-            emailjs.init('ljiKvSeNsFKBPIhPI');
-            console.log('EmailJS inicializado com sucesso');
-            
+        });
+        
+        function initEmailJS() {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init('ljiKvSeNsFKBPIhPI');
+                console.log('EmailJS inicializado com sucesso');
+                
+                // Configurar formulário se o DOM estiver pronto
+                if (document.readyState === 'complete') {
+                    setupContactForm();
+                } else {
+                    document.addEventListener('DOMContentLoaded', setupContactForm);
+                }
+            }
+        }
+        
+        function setupContactForm() {
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
             const contactModal = document.getElementById('contact-modal');
@@ -106,6 +127,8 @@
                 console.error('Elementos do formulário não encontrados');
                 return;
             }
+            
+            console.log('Configurando formulário de contato...');
             
             // Fechar modal ao clicar fora
             contactModal.addEventListener('click', (e) => {
@@ -136,6 +159,11 @@
                 
                 try {
                     console.log('Enviando formulário...', templateParams);
+                    
+                    // Verificar EmailJS novamente antes de enviar
+                    if (typeof emailjs === 'undefined') {
+                        throw new Error('EmailJS não está disponível no momento do envio');
+                    }
                     
                     // Enviar usando EmailJS
                     const response = await emailjs.send(
@@ -171,7 +199,7 @@
                     formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
                 }
             });
-        });
+        }
     </script>
 </head>
 <body class="bg-gray-50">
