@@ -89,73 +89,81 @@
         // Inicializar EmailJS (substitua YOUR_PUBLIC_KEY)
         emailjs.init('ljiKvSeNsFKBPIhPI');
         
-        const contactForm = document.getElementById('contact-form');
-        const formStatus = document.getElementById('form-status');
-        const contactModal = document.getElementById('contact-modal');
-        
-        // Fechar modal ao clicar fora
-        contactModal.addEventListener('click', (e) => {
-            if (e.target === contactModal) {
-                contactModal.classList.add('hidden');
+        // Esperar o DOM carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            const contactModal = document.getElementById('contact-modal');
+            
+            if (!contactForm || !formStatus || !contactModal) {
+                console.error('Elementos do formulário não encontrados');
+                return;
             }
-        });
-        
-        // Enviar formulário
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
             
-            // Coletar dados
-            const formData = new FormData(contactForm);
-            const templateParams = {
-                nome: formData.get('nome'),
-                email: formData.get('email'),
-                telefone: formData.get('telefone'),
-                assunto: formData.get('assunto'),
-                mensagem: formData.get('mensagem'),
-                data: new Date().toLocaleString('pt-BR')
-            };
-            
-            // Mostrar status
-            formStatus.classList.remove('hidden');
-            formStatus.className = 'p-3 rounded-lg text-sm bg-blue-100 text-blue-700';
-            formStatus.textContent = 'Enviando...';
-            
-            try {
-                console.log('Enviando formulário...', templateParams);
-                
-                // Enviar usando EmailJS
-                const response = await emailjs.send(
-                    'service_9tnugi8',      // Substitua com seu Service ID
-                    'template_pjm62ug',     // Substitua com seu Template ID
-                    templateParams
-                );
-                
-                console.log('Resposta EmailJS:', response);
-                
-                if (response.status === 200) {
-                    formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
-                    formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
-                    contactForm.reset();
-                    
-                    // Fechar modal em 3 segundos
-                    setTimeout(() => {
-                        contactModal.classList.add('hidden');
-                        formStatus.classList.add('hidden');
-                    }, 3000);
-                } else {
-                    throw new Error(`Status não esperado: ${response.status}`);
+            // Fechar modal ao clicar fora
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) {
+                    contactModal.classList.add('hidden');
                 }
-            } catch (error) {
-                console.error('Erro detalhado ao enviar email:', error);
-                console.error('Detalhes do erro:', {
-                    message: error.message,
-                    status: error.status,
-                    text: error.text
-                });
+            });
+            
+            // Enviar formulário
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-                formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
-                formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
-            }
+                // Coletar dados
+                const formData = new FormData(contactForm);
+                const templateParams = {
+                    nome: formData.get('nome'),
+                    email: formData.get('email'),
+                    telefone: formData.get('telefone'),
+                    assunto: formData.get('assunto'),
+                    mensagem: formData.get('mensagem'),
+                    data: new Date().toLocaleString('pt-BR')
+                };
+                
+                // Mostrar status
+                formStatus.classList.remove('hidden');
+                formStatus.className = 'p-3 rounded-lg text-sm bg-blue-100 text-blue-700';
+                formStatus.textContent = 'Enviando...';
+                
+                try {
+                    console.log('Enviando formulário...', templateParams);
+                    
+                    // Enviar usando EmailJS
+                    const response = await emailjs.send(
+                        'service_9tnugi8',      // Substitua com seu Service ID
+                        'template_pjm62ug',     // Substitua com seu Template ID
+                        templateParams
+                    );
+                    
+                    console.log('Resposta EmailJS:', response);
+                    
+                    if (response.status === 200) {
+                        formStatus.className = 'p-3 rounded-lg text-sm bg-green-100 text-green-700';
+                        formStatus.textContent = '✓ Mensagem enviada com sucesso! Responderemos em breve.';
+                        contactForm.reset();
+                        
+                        // Fechar modal em 3 segundos
+                        setTimeout(() => {
+                            contactModal.classList.add('hidden');
+                            formStatus.classList.add('hidden');
+                        }, 3000);
+                    } else {
+                        throw new Error(`Status não esperado: ${response.status}`);
+                    }
+                } catch (error) {
+                    console.error('Erro detalhado ao enviar email:', error);
+                    console.error('Detalhes do erro:', {
+                        message: error.message,
+                        status: error.status,
+                        text: error.text
+                    });
+                    
+                    formStatus.className = 'p-3 rounded-lg text-sm bg-red-100 text-red-700';
+                    formStatus.textContent = `✗ Erro ao enviar: ${error.message || 'Verifique o console para detalhes'}`;
+                }
+            });
         });
     </script>
 </head>
@@ -178,7 +186,7 @@
     </header>
     
     <!-- HERO SECTION -->
-    <section class="hero-section bg-cover bg-center bg-fixed py-24 px-8 text-center text-gray-900" style="background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('hero-bg.jpg');">
+    <section class="hero-section bg-cover bg-center bg-fixed py-24 px-8 text-center text-gray-900" style="background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('hero-bg.png');">
         <div class="max-w-2xl mx-auto">
             <div class="w-24 h-24 mx-auto mb-8">
                 <img src="logo.png" alt="Meu Bairro Logo Grande" class="w-full h-full object-contain">
